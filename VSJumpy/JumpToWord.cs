@@ -12,7 +12,7 @@ namespace VSJumpy
 	/// <summary>
 	/// Command handler
 	/// </summary>
-	internal sealed class command
+	internal sealed class JumpToWord
 	{
 		/// <summary>
 		/// Command ID.
@@ -30,12 +30,12 @@ namespace VSJumpy
 		private readonly AsyncPackage package;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="command"/> class.
+		/// Initializes a new instance of the <see cref="JumpToWord"/> class.
 		/// Adds our command handlers for menu (commands must exist in the command table file)
 		/// </summary>
 		/// <param name="package">Owner package, not null.</param>
 		/// <param name="commandService">Command service to add command to, not null.</param>
-		private command(AsyncPackage package, OleMenuCommandService commandService)
+		private JumpToWord(AsyncPackage package, OleMenuCommandService commandService)
 		{
 			this.package = package ?? throw new ArgumentNullException(nameof(package));
 			commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -48,7 +48,7 @@ namespace VSJumpy
 		/// <summary>
 		/// Gets the instance of the command.
 		/// </summary>
-		public static command Instance
+		public static JumpToWord Instance
 		{
 			get;
 			private set;
@@ -76,7 +76,7 @@ namespace VSJumpy
 			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
 			OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
-			Instance = new command(package, commandService);
+			Instance = new JumpToWord(package, commandService);
 		}
 
 		/// <summary>

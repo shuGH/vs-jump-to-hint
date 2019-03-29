@@ -15,14 +15,14 @@
         defining some of the constants that we will use inside the file. -->
 
   <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
-  <Extern href="stdidcmd.h"/>
+  <Extern href="stdidcmd.h" />
 
   <!--This header contains the command ids for the menus provided by the shell. -->
-  <Extern href="vsshlids.h"/>
+  <Extern href="vsshlids.h" />
 
   <!--The Commands section is where commands, menus, and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
-  <Commands package="guidcommandPackage">
+  <Commands package="guidJumpyPackage">
     <!-- Inside this section we have different sub-sections: one for the menus, another
     for the menu groups, one for the buttons (the actual commands), one for the combos
     and the last one for the bitmaps used. Each element is identified by a command id that
@@ -36,8 +36,8 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
     <Groups>
-      <Group guid="guidcommandPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      <Group guid="guidJumpyPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
     </Groups>
 
@@ -52,11 +52,18 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidcommandPackageCmdSet" id="commandId" priority="0x0100" type="Button">
-        <Parent guid="guidcommandPackageCmdSet" id="MyMenuGroup" />
+      <Button guid="guidJumpyPackageCmdSet" id="cmdidJumpToWord" priority="0x0100" type="Button">
+        <Parent guid="guidJumpyPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Invoke command</ButtonText>
+          <ButtonText>Jump to Word</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidJumpyPackageCmdSet" id="cmdidJumpToLine" priority="0x0100" type="Button">
+        <Parent guid="guidJumpyPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages1" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Jump to Line</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -68,21 +75,32 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\command.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+      <Bitmap guid="guidImages" href="Resources\JumpToWord.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages1" href="Resources\JumpToLine.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidcommandPackage" value="{a5016ab3-40c3-4b6a-8093-4400f242c6f0}" />
+    <GuidSymbol name="guidJumpyPackage" value="{a5016ab3-40c3-4b6a-8093-4400f242c6f0}" />
 
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidcommandPackageCmdSet" value="{e5598eaf-dd5f-4e99-9ef9-d0c0de1c0a4d}">
+    <GuidSymbol name="guidJumpyPackageCmdSet" value="{e5598eaf-dd5f-4e99-9ef9-d0c0de1c0a4d}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="commandId" value="0x0100" />
+      <IDSymbol name="cmdidJumpToWord" value="0x0100" />
+      <IDSymbol name="cmdidJumpToLine" value="4129" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{8a463768-c223-4f38-bf44-f580f807f734}" >
+    <GuidSymbol name="guidImages" value="{8a463768-c223-4f38-bf44-f580f807f734}">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{9a5e6e3a-8450-4869-a3af-fa46cd07eee1}" name="guidImages1">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />
