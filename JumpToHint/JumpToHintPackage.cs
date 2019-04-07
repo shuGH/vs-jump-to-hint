@@ -8,9 +8,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.Win32;
 using Task = System.Threading.Tasks.Task;
@@ -75,13 +78,26 @@ namespace JumpToHint
             await JumpToLine.InitializeAsync(this);
         }
 
-        public int GetCurrentView(out IVsTextView view)
+        public IVsTextView GetCurrentView()
         {
-            // code to get access to the editor's currently selected text cribbed from
-            // http://msdn.microsoft.com/en-us/library/dd884850.aspx
             IVsTextManager manager = (IVsTextManager)GetService(typeof(SVsTextManager));
             Assumes.Present(manager);
-            return manager.GetActiveView(0, null, out view);
+            manager.GetActiveView(0, null, out IVsTextView view);
+            return view;
+        }
+
+        public IWpfTextView GetCurrentWpfView()
+        {
+            IVsTextView view = GetCurrentView();
+            if (view == null) return null;
+
+            IVsTextManager manager = (IVsTextManager)GetService(typeof(SVsTextManager));
+            Assumes.Present(manager);
+            IComponentModel componentModel = (IComponentModel)GetService(typeof(SComponentModel));
+            Assumes.Present(componentModel);
+            var editor = componentModel.GetService<IVsEditorAdaptersFactoryService>();
+
+            return editor.GetWpfTextView(view);
         }
 
         #endregion

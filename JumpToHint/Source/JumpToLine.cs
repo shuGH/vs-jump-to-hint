@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Task = System.Threading.Tasks.Task;
 
@@ -91,13 +92,9 @@ namespace JumpToHint
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            IVsTextView view;
-            ((JumpToHintPackage)package).GetCurrentView(out view);
-
             string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
             string title = "JumpToLine";
-            view.GetSelectedText(out message);
-
+            
             // Show a message box to prove we were here
             VsShellUtilities.ShowMessageBox(
                 this.package,

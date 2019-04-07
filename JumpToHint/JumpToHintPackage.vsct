@@ -25,7 +25,7 @@
   <Commands package="guidJumpToHintPackage">
     <Menus>
       <Menu guid="guidJumpToHintPackageCmdSet" id="SubMenu" priority="0x0100" type="Menu">
-        <Parent guid="guidJumpToHintPackageCmdSet" id="MyMenuGroup"/>
+        <Parent guid="guidJumpToHintPackageCmdSet" id="MyMenuGroup" />
         <Strings>
           <ButtonText>Jump To Hint</ButtonText>
         </Strings>
@@ -49,7 +49,7 @@
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
       <Group guid="guidJumpToHintPackageCmdSet" id="SubMenuGroup" priority="0x0000">
-        <Parent guid="guidJumpToHintPackageCmdSet" id="SubMenu"/>
+        <Parent guid="guidJumpToHintPackageCmdSet" id="SubMenu" />
       </Group>
     </Groups>
 
@@ -93,6 +93,11 @@
     </Bitmaps>
   </Commands>
 
+  <KeyBindings>
+    <KeyBinding guid="guidJumpToHintPackageCmdSet" id="cmdidJumpToWord" editor="guidVSStd97" key1="J" mod1="Control Shift" key2="W" mod2="" />
+    <KeyBinding guid="guidJumpToHintPackageCmdSet" id="cmdidJumpToLine" editor="guidVSStd97" key1="J" mod1="Control Shift" key2="L" mod2="" />
+  </KeyBindings>
+
   <Symbols>
     <!-- This is the package guid. -->
     <GuidSymbol name="guidJumpToHintPackage" value="{52191120-39d2-43ba-bff4-a37b7d7618c5}" />
@@ -100,8 +105,8 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidJumpToHintPackageCmdSet" value="{6e72bd5f-581a-4d04-90a8-3c19ff09a68b}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="SubMenu" value="0x1100"/>
-      <IDSymbol name="SubMenuGroup" value="0x1150"/>
+      <IDSymbol name="SubMenu" value="0x1100" />
+      <IDSymbol name="SubMenuGroup" value="0x1150" />
       <IDSymbol name="cmdidJumpToWord" value="0x0100" />
       <IDSymbol name="cmdidJumpToLine" value="4129" />
     </GuidSymbol>
